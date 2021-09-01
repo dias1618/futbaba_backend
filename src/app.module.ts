@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { JogadorController } from './controllers/jogador.controller';
 import { Encontro } from './entities/encontro.entity';
 import { Jogador } from './entities/jogador.entity';
 import { PartidaGol } from './entities/partida-gol.entity';
@@ -10,6 +9,9 @@ import { PartidaTime } from './entities/partida-time.entity';
 import { Partida } from './entities/partida.entity';
 import { TimeJogador } from './entities/time-jogador.entity';
 import { Time } from './entities/time.entity';
+import { JOGADOR_REPOSITORY } from './repositories/jogador.repository';
+import { JogadorTypeorm } from './repositories/typeorm/jogador.typeorm';
+import { JogadorService } from './services/jogador/jogador.service';
 
 @Module({
   imports: [
@@ -37,10 +39,15 @@ import { Time } from './entities/time.entity';
     }),
   ],
   controllers: [
-    AppController
+    JogadorController,
   ],
   providers: [
-    AppService
+    JogadorService,
+    {
+      useClass: JogadorTypeorm,
+      provide: JOGADOR_REPOSITORY
+    },
+    
   ],
 })
 export class AppModule {}

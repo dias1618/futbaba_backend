@@ -31,7 +31,7 @@ export class Jogador extends BaseEntity{
     @Column("smallint", {nullable: true})
     tpPosicao:number;
     
-    @ApiProperty({ example: '4', description: 'Indicam o nível do jogador de 1 a 5' })
+    @ApiProperty({ example: 4, description: 'Indicam o nível do jogador de 1 a 5' })
     @Column("smallint", {nullable: true})
     qtEstrelas:number;
 

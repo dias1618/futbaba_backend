@@ -10,10 +10,6 @@ async function bootstrap() {
     .setTitle('API do sistem futbaba')
     .setDescription('Essa página descreve as rotas possíveis do sistema futbaba.')
     .setVersion('1.0')
-    .addTag('encontro')
-    .addTag('jogador')
-    .addTag('partida')
-    .addTag('time')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
