@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Encontro } from "./encontro.entity";
 import { PartidaGol } from "./partida-gol.entity";
@@ -13,6 +14,10 @@ export class Partida extends BaseEntity{
 
     @PrimaryGeneratedColumn()
     id:number;
+
+    @ApiProperty({ example: '4', description: 'Posição da partida em relação ao encontro' })
+    @Column("smallint", {nullable: true})
+    nrPartida:number;
     
     @ManyToOne(type => Encontro, encontro => encontro.partidas)
     encontro: Encontro;
