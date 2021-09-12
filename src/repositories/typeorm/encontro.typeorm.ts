@@ -1,4 +1,6 @@
 import { Encontro } from "src/entities/encontro.entity";
+import { Partida } from "src/entities/partida.entity";
+import { Time } from "src/entities/time.entity";
 import { getRepository } from "typeorm";
 import { EncontroRepository } from "../encontro.repository";
 
@@ -27,6 +29,22 @@ export class EncontroTypeorm implements EncontroRepository{
             .where(`encontro.id = :id`, {id: id})
             .getOne();
         return await getRepository(Encontro).remove(encontro);
+    }
+    
+    async getPartidas(id:number):Promise<Partida[]>{
+        let encontro:Encontro = await getRepository(Encontro).createQueryBuilder('encontro')
+            .leftJoinAndSelect('encontro.partidas', 'partidas')
+            .where(`encontro.id = :id`, {id: id})
+            .getOne();
+        return encontro.partidas;
+    }
+    
+    async getTimes(id:number):Promise<Time[]>{
+        let encontro:Encontro = await getRepository(Encontro).createQueryBuilder('encontro')
+            .leftJoinAndSelect('encontro.times', 'times')
+            .where(`encontro.id = :id`, {id: id})
+            .getOne();
+        return encontro.times;
     }
     
 }

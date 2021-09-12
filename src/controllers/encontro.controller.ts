@@ -57,4 +57,22 @@ export class EncontroController {
     return await this._encontroService.delete(id);
   }
   
+  @Get(':id/partidas')
+  @ApiOperation({ summary: 'Busca todas partidas de um encontro' })
+  @ApiResponse({ status: 401, description: 'Autorização não identificada para a operação.' })
+  @ApiResponse({ status: 204, description: 'Nenhum encontro encontrado.' })
+  @ApiResponse({ status: 200, description: 'Busca realizada com sucesso.', type: Encontro,})
+  async getPartidas(@Param('id') id:number) {
+    return await this._encontroService.getPartidas(id);
+  }
+  
+  @Get(':id/times')
+  @ApiOperation({ summary: 'Busca todos times de um encontro' })
+  @ApiResponse({ status: 401, description: 'Autorização não identificada para a operação.' })
+  @ApiResponse({ status: 204, description: 'Nenhum encontro encontrado.' })
+  @ApiResponse({ status: 200, description: 'Busca realizada com sucesso.', type: Encontro,})
+  async getTimes(@Param('id') id:number) {
+    return await this._encontroService.getTimes(id);
+  }
+  
 }
