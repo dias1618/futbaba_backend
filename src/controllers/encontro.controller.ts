@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put } from "@nest
 import { Encontro } from "src/entities/encontro.entity";
 import { EncontroService } from "src/services/encontro/encontro.service";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { RedistribuicaoService } from "src/services/redistribuicao/redistribuicao.service";
 
 @ApiTags('encontros')
 @Controller('encontros')
@@ -9,6 +10,7 @@ export class EncontroController {
   
   constructor(
     private readonly _encontroService: EncontroService,
+    private readonly _redistribuicaoService: RedistribuicaoService,
   ) {}
 
   @Post('')
@@ -73,6 +75,24 @@ export class EncontroController {
   @ApiResponse({ status: 200, description: 'Busca realizada com sucesso.', type: Encontro,})
   async getTimes(@Param('id') id:number) {
     return await this._encontroService.getTimes(id);
+  }
+  
+  @Get(':id/jogadores')
+  @ApiOperation({ summary: 'Busca todos jogadores de um encontro' })
+  @ApiResponse({ status: 401, description: 'Autorização não identificada para a operação.' })
+  @ApiResponse({ status: 204, description: 'Nenhum encontro encontrado.' })
+  @ApiResponse({ status: 200, description: 'Busca realizada com sucesso.', type: Encontro,})
+  async getJogadores(@Param('id') id:number) {
+    return await this._encontroService.getJogadores(id);
+  }
+  
+  @Put(':id/redistribuir')
+  @ApiOperation({ summary: 'Faz a redistribuição dos jogadores nos times de um determinado encontro' })
+  @ApiResponse({ status: 401, description: 'Autorização não identificada para a operação.' })
+  @ApiResponse({ status: 204, description: 'Nenhum encontro encontrado.' })
+  @ApiResponse({ status: 200, description: 'Busca realizada com sucesso.', type: Encontro,})
+  async redistribuir(@Param('id') id:number) {
+    return await this._redistribuicaoService.redistribuir(id);
   }
   
 }

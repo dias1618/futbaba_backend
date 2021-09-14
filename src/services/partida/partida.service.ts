@@ -1,9 +1,10 @@
-import { Inject } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { Partida } from "src/entities/partida.entity";
 import { PartidaNaoEncontradoException } from "src/exceptions/partida-nao-encontrado.exception";
 import { PartidasNaoEncontradosException } from "src/exceptions/partidas-nao-encontrados.exception";
 import { PartidaRepository, PARTIDA_REPOSITORY } from "src/repositories/partida.repository";
 
+@Injectable()
 export class PartidaService{
 
     constructor(

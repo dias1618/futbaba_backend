@@ -1,9 +1,10 @@
-import { Inject } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { Jogador } from "src/entities/jogador.entity";
 import { JogadorNaoEncontradoException } from "src/exceptions/jogador-nao-encontrado.exception";
 import { JogadoresNaoEncontradosException } from "src/exceptions/jogadores-nao-encontrados.exception";
 import { JogadorRepository, JOGADOR_REPOSITORY } from "src/repositories/jogador.repository";
 
+@Injectable()
 export class JogadorService{
 
     constructor(

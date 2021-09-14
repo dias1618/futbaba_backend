@@ -1,4 +1,5 @@
 import { Encontro } from "src/entities/encontro.entity";
+import { Jogador } from "src/entities/jogador.entity";
 import { Partida } from "src/entities/partida.entity";
 import { Time } from "src/entities/time.entity";
 import { getRepository } from "typeorm";
@@ -42,9 +43,18 @@ export class EncontroTypeorm implements EncontroRepository{
     async getTimes(id:number):Promise<Time[]>{
         let encontro:Encontro = await getRepository(Encontro).createQueryBuilder('encontro')
             .leftJoinAndSelect('encontro.times', 'times')
+            .leftJoinAndSelect('times.timeJogadores', 'timeJogadores')
             .where(`encontro.id = :id`, {id: id})
             .getOne();
         return encontro.times;
+    }
+    
+    async getJogadores(id:number):Promise<Jogador[]>{
+        let encontro:Encontro = await getRepository(Encontro).createQueryBuilder('encontro')
+            .leftJoinAndSelect('encontro.jogadores', 'jogadores')
+            .where(`encontro.id = :id`, {id: id})
+            .getOne();
+        return encontro.jogadores;
     }
     
 }

@@ -1,9 +1,10 @@
-import { Inject } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { Time } from "src/entities/time.entity";
 import { TimeNaoEncontradoException } from "src/exceptions/time-nao-encontrado.exception";
 import { TimesNaoEncontradosException } from "src/exceptions/times-nao-encontrados.exception";
 import { TimeRepository, TIME_REPOSITORY } from "src/repositories/time.repository";
 
+@Injectable()
 export class TimeService{
 
     constructor(
@@ -43,4 +44,8 @@ export class TimeService{
         return await this._timeRepository.delete(id);
     }
 
+    async removerJogadores(time:Time){
+        time.timeJogadores = [];
+        await this.update(time);
+    }
 }

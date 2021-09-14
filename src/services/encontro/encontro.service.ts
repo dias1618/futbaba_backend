@@ -1,16 +1,18 @@
-import { Inject } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { Encontro } from "src/entities/encontro.entity";
+import { Jogador } from "src/entities/jogador.entity";
 import { Partida } from "src/entities/partida.entity";
 import { Time } from "src/entities/time.entity";
 import { EncontroNaoEncontradoException } from "src/exceptions/encontro-nao-encontrado.exception";
 import { EncontrosNaoEncontradosException } from "src/exceptions/encontros-nao-encontrados.exception";
 import { EncontroRepository, ENCONTRO_REPOSITORY } from "src/repositories/encontro.repository";
 
+@Injectable()
 export class EncontroService{
 
     constructor(
         @Inject(ENCONTRO_REPOSITORY)
-        private _encontroRepository: EncontroRepository,       
+        private _encontroRepository: EncontroRepository,
     ){}
 
     async insert(encontro:Encontro):Promise<any>{
@@ -52,4 +54,9 @@ export class EncontroService{
     async getTimes(id:number):Promise<Array<Time>>{
         return await this._encontroRepository.getTimes(id);
     }
+    
+    async getJogadores(id:number):Promise<Array<Jogador>>{
+        return await this._encontroRepository.getJogadores(id);
+    }
+
 }

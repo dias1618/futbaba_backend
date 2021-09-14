@@ -1,4 +1,5 @@
 import { Encontro } from "src/entities/encontro.entity";
+import { Jogador } from "src/entities/jogador.entity";
 import { Partida } from "src/entities/partida.entity";
 import { Time } from "src/entities/time.entity";
 
@@ -12,6 +13,7 @@ export interface EncontroRepository{
     delete(id:number):Promise<Encontro>;
     getPartidas(id:number):Promise<Array<Partida>>;
     getTimes(id:number):Promise<Array<Time>>;
+    getJogadores(id:number):Promise<Array<Jogador>>;
 }
 
 
