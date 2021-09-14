@@ -1,4 +1,3 @@
-import { Time } from "src/entities/time.entity";
 import { DivideTime } from "./divide-time";
 import { DivideTimeConstructor } from "./divide-time-constructor";
 

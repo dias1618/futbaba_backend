@@ -7,7 +7,7 @@ import { EncontroService } from "../encontro/encontro.service";
 import { TimeJogadorService } from "../time-jogador/time-jogador.service";
 import { DivideTimeEstrelas } from "./divide-time-estrelas";
 import { DivideTimeGoleiros } from "./divide-time-goleiros";
-import * as FactoryDivideTime from "./factory-divide-time";
+import { newDivideTime } from "./factory-divide-time";
 
 @Injectable()
 export class RedistribuicaoService{
@@ -22,8 +22,8 @@ export class RedistribuicaoService{
         let times:Time[] = await this._encontroService.getTimes(id);
         await this.limparTimes(times);
         let timesJogadores:TimeJogador[] = this.dividirJogadores(times, jogadores);
-        let divideTimeEstrelas:DivideTimeEstrelas = FactoryDivideTime.newDivideTime(DivideTimeEstrelas);
-        let divideTimeGoleiros:DivideTimeGoleiros = FactoryDivideTime.newDivideTime(DivideTimeGoleiros, divideTimeEstrelas);
+        let divideTimeEstrelas:DivideTimeEstrelas = newDivideTime(DivideTimeEstrelas);
+        let divideTimeGoleiros:DivideTimeGoleiros = newDivideTime(DivideTimeGoleiros, divideTimeEstrelas);
         divideTimeGoleiros.dividir(timesJogadores);
         this.salvarTimes(timesJogadores);
         return timesJogadores;
