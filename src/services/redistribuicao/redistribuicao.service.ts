@@ -22,8 +22,8 @@ export class RedistribuicaoService{
         let times:Time[] = await this._encontroService.getTimes(id);
         await this.limparTimes(times);
         let timesJogadores:TimeJogador[] = this.dividirJogadores(times, jogadores);
-        let divideTimeEstrelas:DivideTimeEstrelas = newDivideTime(DivideTimeEstrelas);
-        let divideTimeGoleiros:DivideTimeGoleiros = newDivideTime(DivideTimeGoleiros, divideTimeEstrelas);
+        let divideTimeEstrelas = newDivideTime(DivideTimeEstrelas);
+        let divideTimeGoleiros = newDivideTime(DivideTimeGoleiros, divideTimeEstrelas);
         divideTimeGoleiros.dividir(timesJogadores);
         this.salvarTimes(timesJogadores);
         return timesJogadores;
