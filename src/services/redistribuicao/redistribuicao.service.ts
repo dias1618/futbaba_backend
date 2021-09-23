@@ -5,7 +5,7 @@ import { Time } from "src/entities/time.entity";
 import { random } from "src/util/random";
 import { EncontroService } from "../encontro/encontro.service";
 import { TimeJogadorService } from "../time-jogador/time-jogador.service";
-import { DivideTimeEstrelas } from "./divide-time-estrelas";
+import { DivideTimeEstrelas } from "./por-estrelas/divide-time-estrelas";
 import { DivideTimeGoleiros } from "./divide-time-goleiros";
 import { newDivideTime } from "./factory-divide-time";
 
@@ -29,7 +29,6 @@ export class RedistribuicaoService{
         return timesJogadores;
     }
 
-
     async limparTimes(times:Time[]){
         for (const time of times) {
             for(const timeJogador of time.timeJogadores){
@@ -46,11 +45,10 @@ export class RedistribuicaoService{
             let posicao:number = random(0, jogadoresInicial.length-1);
             let timeJogador:TimeJogador = new TimeJogador();
             timeJogador.time = times[indexTimes++];
-            if(indexTimes == times.length)
-                indexTimes = 0;
             timeJogador.jogador = jogadoresInicial[posicao];
             timesJogadores.push(timeJogador);
             jogadoresInicial.splice(posicao, 1);
+            indexTimes = this.zerarAoChegarAoLimite(indexTimes, times.length);
         }
         return timesJogadores;
     }
@@ -59,5 +57,11 @@ export class RedistribuicaoService{
         for (const timeJogador of timesJogadores) {
             await this._timeJogadorService.insert(timeJogador);
         }
+    }
+
+    private zerarAoChegarAoLimite(indexTimes:number, limite:number){
+        if(indexTimes == limite)
+            return 0;
+        return indexTimes;
     }
 }
