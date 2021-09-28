@@ -28,6 +28,11 @@ import { TimeJogadorService } from './services/time-jogador/time-jogador.service
 import { TimeJogadorTypeorm } from './repositories/typeorm/time-jogador.typeorm';
 import { TIME_JOGADOR_REPOSITORY } from './repositories/time-jogador.repository';
 import { RedistribuicaoService } from './services/redistribuicao/redistribuicao.service';
+import { Baba } from './entities/baba.entity';
+import { BabaController } from './controllers/baba.controller';
+import { BabaService } from './services/baba/baba.service';
+import { BabaTypeorm } from './repositories/typeorm/baba.typeorm';
+import { BABA_REPOSITORY } from './repositories/baba.repository';
 
 @Module({
   imports: [
@@ -48,7 +53,8 @@ import { RedistribuicaoService } from './services/redistribuicao/redistribuicao.
         PartidaTime,
         Partida,
         TimeJogador,
-        Time
+        Time,
+        Baba
       ],
       synchronize: true,
       //logging: true
@@ -59,6 +65,7 @@ import { RedistribuicaoService } from './services/redistribuicao/redistribuicao.
     EncontroController,
     PartidaController,
     TimeController,
+    BabaController,
   ],
   providers: [
     JogadorService,
@@ -85,6 +92,11 @@ import { RedistribuicaoService } from './services/redistribuicao/redistribuicao.
     {
       useClass: TimeJogadorTypeorm,
       provide: TIME_JOGADOR_REPOSITORY
+    },
+    BabaService,
+    {
+      useClass: BabaTypeorm,
+      provide: BABA_REPOSITORY
     },
     RedistribuicaoService,
     

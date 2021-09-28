@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Baba } from "./baba.entity";
 import { Jogador } from "./jogador.entity";
 import { Partida } from "./partida.entity";
 import { Time } from "./time.entity";
@@ -39,5 +40,8 @@ export class Encontro extends BaseEntity{
 
     @OneToMany(type=> Jogador, jogador => jogador.encontro)
     jogadores: Jogador[];
+
+    @ManyToOne(type => Baba, baba => baba.encontros)
+    baba: Baba;
 
 }
