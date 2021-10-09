@@ -26,7 +26,38 @@ export class RedistribuicaoService{
         let divideTimeGoleiros = newDivideTime(DivideTimeGoleiros, divideTimeEstrelas);
         divideTimeGoleiros.dividir(timesJogadores);
         this.salvarTimes(timesJogadores);
+        this.printJogadores(timesJogadores);
         return timesJogadores;
+    }
+
+    private printJogadores(timesJogadores:TimeJogador[]){
+        console.log('')
+        console.log('-----------INICIO PRINT--------------------')
+        let listaPrintTimeJogador:{time:Time, jogadores:Jogador[]}[] = [];
+        for (const timeJogador of timesJogadores) {
+            let achadoTime:boolean = false;
+            for(const printTimeJogador of listaPrintTimeJogador){
+                if(printTimeJogador.time.id == timeJogador.time.id){
+                    printTimeJogador.jogadores.push(timeJogador.jogador);
+                    achadoTime = true;
+                    break;
+                }
+            }       
+
+            if(!achadoTime){
+                listaPrintTimeJogador.push({time: timeJogador.time, jogadores: [timeJogador.jogador]});
+            }
+        }
+
+        for (const printTimeJogador of listaPrintTimeJogador) {
+            console.log('Time: ', printTimeJogador.time.nmTime);
+            for(const jogador of printTimeJogador.jogadores){
+                console.log('Jogador: ', jogador.nmJogador, ', Nivel: ', jogador.qtEstrelas);
+            }
+            console.log('');
+        }
+        console.log('-----------FIM PRINT--------------------')
+        console.log('')
     }
 
     async limparTimes(times:Time[]){
