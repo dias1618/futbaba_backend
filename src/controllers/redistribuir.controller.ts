@@ -19,6 +19,7 @@ export class RedistribuirController {
   @ApiResponse({ status: 200, description: 'Busca realizada com sucesso.', type: TimeJogador,})
   async redistribuir(@Body() jogadoresNaoDistribuidos:JogadoresNaoDistribuidos) {
     console.log('jogadoresNaoDistribuidos.jogadores = ', jogadoresNaoDistribuidos.jogadores)
+    console.log('jogadoresNaoDistribuidos.times = ', jogadoresNaoDistribuidos.times)
     return await this._redistribuicaoService.redistribuir(jogadoresNaoDistribuidos.jogadores, jogadoresNaoDistribuidos.times);
   }
  
