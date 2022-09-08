@@ -92,7 +92,7 @@ export class EncontroController {
   @ApiResponse({ status: 204, description: 'Nenhum encontro encontrado.' })
   @ApiResponse({ status: 200, description: 'Busca realizada com sucesso.', type: Encontro,})
   async redistribuir(@Param('id') id:number) {
-    return await this._redistribuicaoService.redistribuir(id);
+    return await this._redistribuicaoService.redistribuirEncontro(id);
   }
   
 }

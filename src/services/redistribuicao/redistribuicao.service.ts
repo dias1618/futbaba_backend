@@ -17,15 +17,21 @@ export class RedistribuicaoService{
         private _timeJogadorService:TimeJogadorService
     ){}
 
-    async redistribuir(id:number):Promise<TimeJogador[]>{
+    async redistribuirEncontro(id:number):Promise<TimeJogador[]>{
         let jogadores:Jogador[] = await this._encontroService.getJogadores(id);
         let times:Time[] = await this._encontroService.getTimes(id);
-        await this.limparTimes(times);
+        return this.redistribuir(jogadores, times, true);
+    }
+
+    async redistribuir(jogadores:Jogador[], times:Time[], lgSalvar:boolean=false):Promise<TimeJogador[]>{
+        if(lgSalvar)
+            await this.limparTimes(times);
         let timesJogadores:TimeJogador[] = this.dividirJogadores(times, jogadores);
         let divideTimeEstrelas = newDivideTime(DivideTimeEstrelas);
         let divideTimeGoleiros = newDivideTime(DivideTimeGoleiros, divideTimeEstrelas);
         divideTimeGoleiros.dividir(timesJogadores);
-        this.salvarTimes(timesJogadores);
+        if(lgSalvar)
+            this.salvarTimes(timesJogadores);
         this.printJogadores(timesJogadores);
         return timesJogadores;
     }

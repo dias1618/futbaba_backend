@@ -33,6 +33,7 @@ import { BabaController } from './controllers/baba.controller';
 import { BabaService } from './services/baba/baba.service';
 import { BabaTypeorm } from './repositories/typeorm/baba.typeorm';
 import { BABA_REPOSITORY } from './repositories/baba.repository';
+import { RedistribuirController } from './controllers/redistribuir.controller';
 
 @Module({
   imports: [
@@ -66,6 +67,7 @@ import { BABA_REPOSITORY } from './repositories/baba.repository';
     PartidaController,
     TimeController,
     BabaController,
+    RedistribuirController
   ],
   providers: [
     JogadorService,
